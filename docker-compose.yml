@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  player1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - PLAYER=1
+    ports:
+      - "3001:3000"
+
+  player2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - PLAYER=2
+    ports:
+      - "3002:3000"
+
