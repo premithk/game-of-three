@@ -7,7 +7,7 @@ export class GameService {
   private gameStarted: boolean = false;
 
   startGame(): number {
-    this.number = 56; // Math.floor(Math.random() * 1000) + 1;
+    this.number = Math.floor(Math.random() * 1000) + 1;
     this.gameStarted = true;
     return this.number;
   }
