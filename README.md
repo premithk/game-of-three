@@ -1,73 +1,44 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+#Documentation
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Requirements to Run
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+### Backend (NestJS)
+- Node.js: Ensure that you have Node.js installed. You can download it from [nodejs.org](https://nodejs.org/). Latest LTS version should be fine.
+- Docker: You can download it from [docker.com](https://www.docker.com/).
 
-## Description
+## Architecture
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+#### Components
+1. **GameService**: Manages the game logic, including starting the game, playing turns, and checking for game over.
+2. **GameController**: Exposes RESTful APIs for starting the game, playing turns, and checking if the game is over.
 
-## Installation
+#### Tests
+1. Units tests are found along with the controller and the service files. `./src/game/game.controller.spec.ts` and `./src/game/game.controller.spec.ts`
+2. E2E tests are found in `./test/app.e2e-spec.ts`. The E2E test also contain a test for the full game play. 
 
-```bash
-$ yarn install
-```
+#### Game Flow
+1. When a player starts, a random number is generated, and the game begins.
+2. Players take turns to adjust the number to be divisible by 3, and the game continues until one player reaches 1.
 
-## Running the app
+#### Docker Compose
+- Two independent instances of the same NestJS application are deployed using Docker Compose to simulate two players.
 
-```bash
-# development
-$ yarn run start
+## Getting Started
 
-# watch mode
-$ yarn run start:dev
+1. **Clone the Repository**: `git clone https://github.com/premithk/game-of-three.git`
+2. **Backend Setup**:
+    - Navigate to the `game-of-three` folder.
+    - Run `npm install` to install dependencies. You can also use `yarn`
+    - Run `docker-compose up` to start the NestJS instances in Docker containers.
+3. **Tests**:
+    - There is a runner called `play.js` in the `script` folder.
+    - Run it using node to see the game in action. `node script/play.js`
+    - Attach screenshot
 
-# production mode
-$ yarn run start:prod
-```
+## Limitations
 
-## Test
+1. **Simplified Logic**: The game logic is kept simple for demonstration purposes. You may enhance it for a more complex and engaging gaming experience.
+2. **Single Instance Interaction**: The game assumes interaction between two players within the same instance. For a real-world scenario, consider integrating WebSocket or other communication methods for cross-instance communication.
+4. **Error Handling**: Basic error handling is implemented. Further enhancements can be made to handle edge cases and improve error messages.
+5. **Security**: The application does not implement advanced security measures. Ensure proper security practices for production deployment.
 
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
