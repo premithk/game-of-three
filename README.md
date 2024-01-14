@@ -1,10 +1,18 @@
-#Documentation
-
 ## Requirements to Run
 
-### Backend (NestJS)
 - Node.js: Ensure that you have Node.js installed. You can download it from [nodejs.org](https://nodejs.org/). Latest LTS version should be fine.
 - Docker: You can download it from [docker.com](https://www.docker.com/).
+
+## Getting Started
+
+1. **Clone the Repository**: `git clone https://github.com/premithk/game-of-three.git`
+2. **Backend Setup**:
+    - Navigate to the `game-of-three` folder.
+    - Run `npm install` to install dependencies. You can also use `yarn`
+    - Run `docker-compose up` to start the NestJS instances in Docker containers.
+3. **To see the game running**:
+    - There is a script called `play.js` in the `script` folder.
+    - Run it using node to see the game in action. `node script/play.js`
 
 ## Architecture
 
@@ -25,17 +33,6 @@
 - Two independent instances of the same NestJS application are deployed using Docker Compose to simulate two players.
 ![game_of_three](https://github.com/premithk/game-of-three/assets/7926867/4f3ed7fe-b3c7-4ac6-9a09-3dcbaea0ba48)
 
-## Getting Started
-
-1. **Clone the Repository**: `git clone https://github.com/premithk/game-of-three.git`
-2. **Backend Setup**:
-    - Navigate to the `game-of-three` folder.
-    - Run `npm install` to install dependencies. You can also use `yarn`
-    - Run `docker-compose up` to start the NestJS instances in Docker containers.
-3. **Tests**:
-    - There is a runner called `play.js` in the `script` folder.
-    - Run it using node to see the game in action. `node script/play.js`
-    - Attach screenshot
 
 ## Limitations
 
