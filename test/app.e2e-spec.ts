@@ -44,10 +44,10 @@ describe('GameController (e2e)', () => {
     expect(response.body).toBeDefined();
   });
 
-  describe('test the entire game flow using a single node', () => {
-    const expectedValues = [19, 6, 2, 1];
-    const expectedAdded = [1, -1, 0, 1];
+  const expectedValues = [19, 6, 2, 1];
+  const expectedAdded = [1, -1, 0, 1];
 
+  describe('test the entire game flow using a single node', () => {
     beforeAll(() => {
       jest.spyOn(global.Math, 'random').mockReturnValue(0.0055);
     });
@@ -86,56 +86,56 @@ describe('GameController (e2e)', () => {
 
       expect(response.text).toEqual('true');
     });
+  });
 
-    describe('test the entire game flow using a two nodes', () => {
-      let app2: INestApplication;
+  describe('test the entire game flow using a two nodes', () => {
+    let app2: INestApplication;
 
-      beforeAll(async () => {
-        jest.spyOn(global.Math, 'random').mockReturnValue(0.0055);
+    beforeAll(async () => {
+      jest.spyOn(global.Math, 'random').mockReturnValue(0.0055);
 
-        const moduleFixture: TestingModule = await Test.createTestingModule({
-          imports: [AppModule],
-        }).compile();
+      const moduleFixture: TestingModule = await Test.createTestingModule({
+        imports: [AppModule],
+      }).compile();
 
-        app2 = moduleFixture.createNestApplication();
-        await app2.init();
-      });
+      app2 = moduleFixture.createNestApplication();
+      await app2.init();
+    });
 
-      afterAll(async () => {
-        jest.spyOn(global.Math, 'random').mockRestore();
-        await app.close();
-      });
+    afterAll(async () => {
+      jest.spyOn(global.Math, 'random').mockRestore();
+      await app.close();
+    });
 
-      it('starting with 56 the game should be over in 5 steps with each player taking turns', async () => {
-        let response = await request(app.getHttpServer())
-          .get('/game/start')
+    it('starting with 56 the game should be over in 5 steps with each player taking turns', async () => {
+      let response = await request(app.getHttpServer())
+        .get('/game/start')
+        .expect(200);
+
+      expect(response.text).toEqual('56');
+
+      let currentNumber = parseInt(response.text);
+      let added: number;
+
+      for (let i = 0; i < 4; i++) {
+        const playerNumber = i % 2 === 0 ? app2 : app;
+
+        response = await request(playerNumber.getHttpServer())
+          .get(`/game/play/${currentNumber}`)
           .expect(200);
 
-        expect(response.text).toEqual('56');
+        currentNumber = response.body.result;
+        added = response.body.added;
 
-        let currentNumber = parseInt(response.text);
-        let added: number;
+        expect(currentNumber).toEqual(expectedValues[i]);
+        expect(added).toEqual(expectedAdded[i]);
+      }
 
-        for (let i = 0; i < 4; i++) {
-          const playerNumber = i % 2 === 0 ? app2 : app;
+      response = await request(app.getHttpServer())
+        .get('/game/gameover')
+        .expect(200);
 
-          response = await request(playerNumber.getHttpServer())
-            .get(`/game/play/${currentNumber}`)
-            .expect(200);
-
-          currentNumber = response.body.result;
-          added = response.body.added;
-
-          expect(currentNumber).toEqual(expectedValues[i]);
-          expect(added).toEqual(expectedAdded[i]);
-        }
-
-        response = await request(app.getHttpServer())
-          .get('/game/gameover')
-          .expect(200);
-
-        expect(response.text).toEqual('true');
-      });
+      expect(response.text).toEqual('true');
     });
   });
 });

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { GameException } from './exceptions/game.exception';
 
-interface TurnResponse {
+interface TurnResponseEntity {
   result: number;
   added: number;
 }
@@ -17,7 +17,7 @@ export class GameService {
     return this.number;
   }
 
-  playTurn(providedNumber: number): TurnResponse {
+  playTurn(providedNumber: number): TurnResponseEntity {
     if (!this.gameStarted) {
       this.gameStarted = true; //Game started by the other instance
     }

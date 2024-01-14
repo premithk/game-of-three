@@ -8,7 +8,18 @@ const playGame = async (playerNumber) => {
     );
 
     let currentNumber = startResponse.data;
-    console.log(`Player ${playerNumber} provided ${currentNumber}`);
+    const outPutArray = [];
+
+    outPutArray.push({
+      player: playerNumber,
+      number: currentNumber,
+      message: `Player ${playerNumber} provided ${currentNumber} to start the game`,
+      operation: '',
+    });
+
+    console.log(
+      `Player ${playerNumber} provided ${currentNumber} to start the game`,
+    );
 
     while (true) {
       playerNumber = playerNumber === 1 ? 2 : 1;
@@ -18,15 +29,35 @@ const playGame = async (playerNumber) => {
         { timeout: 5000 }, // Set a timeout of 5 seconds in case the server is unavailable
       );
 
+      const prevNumber = currentNumber;
+
       currentNumber = playResponse.data.result;
-      console.log(`Player ${playerNumber} provided ${currentNumber}`);
+      console.log(
+        `Player ${playerNumber} provided ${currentNumber} ( = (${prevNumber} + ${playResponse.data.added}) / 3)`,
+      );
+
+      outPutArray.push({
+        player: playerNumber,
+        number: currentNumber,
+        message: `Player ${playerNumber} provided ${currentNumber} `,
+        operation: `= (${prevNumber} + ${playResponse.data.added}) / 3)`,
+      });
 
       const gameOverResponse = await axios.get(
         `http://localhost:300${playerNumber}/game/gameover`,
       );
 
       if (gameOverResponse.data) {
+        outPutArray.push({
+          player: playerNumber,
+          number: currentNumber,
+          message: `Player ${playerNumber} won! Game Over.`,
+          operation: '',
+        });
+
         console.log(`Player ${playerNumber} won! Game Over.`);
+
+        console.table(outPutArray);
         break;
       }
     }
