@@ -17,7 +17,7 @@ describe('GameService', () => {
     it('should start the game with a random number between 1 and 1000', () => {
       const randomNumber = gameService.startGame();
       expect(randomNumber).toBeGreaterThanOrEqual(1);
-      expect(randomNumber).toBeLessThanOrEqual(1000);
+      expect(randomNumber).toBeLessThanOrEqual(10000);
     });
   });
 

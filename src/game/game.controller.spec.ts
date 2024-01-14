@@ -32,12 +32,14 @@ describe('GameController', () => {
       const providedNumber = 56;
       const expectedResult = 19;
 
-      jest.spyOn(gameService, 'playTurn').mockReturnValue(expectedResult);
+      jest
+        .spyOn(gameService, 'playTurn')
+        .mockReturnValue({ result: expectedResult, added: 1 });
 
       const result = gameController.playTurn(providedNumber);
 
       expect(gameService.playTurn).toHaveBeenCalledWith(providedNumber);
-      expect(result).toEqual(expectedResult);
+      expect(result).toEqual({ result: expectedResult, added: 1 });
     });
   });
 
