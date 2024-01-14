@@ -13,15 +13,17 @@
 2. **GameController**: Exposes RESTful APIs for starting the game, playing turns, and checking if the game is over.
 
 #### Tests
-1. Units tests are found along with the controller and the service files. `./src/game/game.controller.spec.ts` and `./src/game/game.controller.spec.ts`
-2. E2E tests are found in `./test/app.e2e-spec.ts`. The E2E test also contain a test for the full game play. 
+1. Unit tests are found along with the controller and the service files. `./src/game/game.controller.spec.ts` and `./src/game/game.controller.spec.ts`
+2. E2E tests are found in `./test/app.e2e-spec.ts`. The E2E test also contains a test for the full gameplay.
+3. You can run the unit tests using `npm run test` and `npm run test:e2e`
 
 #### Game Flow
-1. When a player starts, a random number is generated, and the game begins.
+1. A random number is generated when a player starts, and the game begins.
 2. Players take turns to adjust the number to be divisible by 3, and the game continues until one player reaches 1.
 
 #### Docker Compose
 - Two independent instances of the same NestJS application are deployed using Docker Compose to simulate two players.
+![game_of_three](https://github.com/premithk/game-of-three/assets/7926867/4f3ed7fe-b3c7-4ac6-9a09-3dcbaea0ba48)
 
 ## Getting Started
 
@@ -41,4 +43,8 @@
 2. **Single Instance Interaction**: The game assumes interaction between two players within the same instance. For a real-world scenario, consider integrating WebSocket or other communication methods for cross-instance communication.
 4. **Error Handling**: Basic error handling is implemented. Further enhancements can be made to handle edge cases and improve error messages.
 5. **Security**: The application does not implement advanced security measures. Ensure proper security practices for production deployment.
+
+## Screenshot
+<img width="982" alt="game_of_3" src="https://github.com/premithk/game-of-three/assets/7926867/f53e1f66-3918-48d8-b1f6-7e69a4a106e6">
+
 
